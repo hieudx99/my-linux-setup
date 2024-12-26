@@ -15,6 +15,16 @@ run_as_user() {
 	sudo -u $target_user bash -c "$1";
 }
 
+# git
+printf "${YELLOW}Installing git${NC}\n";
+sleep $delay_after_message;
+sudo apt install git -y;
+
+# curl
+printf "${YELLOW}Installing curl${NC}\n";
+sleep $delay_after_message;
+sudo apt install curl -y;
+
 # Gnome tweak tool
 printf "${YELLOW}Installing gnome-tweak-tool${NC}\n";
 sleep $delay_after_message;
@@ -44,3 +54,9 @@ wget -O- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor 
 echo deb [arch=amd64 signed-by=/usr/share/keyrings/vscode.gpg] https://packages.microsoft.com/repos/vscode stable main | sudo tee /etc/apt/sources.list.d/vscode.list;
 sudo apt update;
 sudo apt install code -y;
+
+# plank dock
+printf "${YELLOW}Installing plank dock${NC}\n";
+sudo apt update;
+sudo apt install plank -y;
+
