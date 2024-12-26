@@ -15,6 +15,14 @@ run_as_user() {
 	sudo -u $target_user bash -c "$1";
 }
 
+# chrome
+printf "${YELLOW}Installing git${NC}\n";
+sleep $delay_after_message;
+sudo apt update -y 
+sudo apt install wget -y 
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+
 # git
 printf "${YELLOW}Installing git${NC}\n";
 sleep $delay_after_message;
