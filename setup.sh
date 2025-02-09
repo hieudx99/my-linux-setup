@@ -15,18 +15,20 @@ run_as_user() {
 	sudo -u $target_user bash -c "$1";
 }
 
+#git config
+printf "${YELLOW}config git${NC}\n";
+git config --global user.email "hieudx1104@gmail.com" 
+git config --global user.name "hieudx99"
+
 # chrome
-printf "${YELLOW}Installing git${NC}\n";
+printf "${YELLOW}Installing chrome${NC}\n";
 sleep $delay_after_message;
 sudo apt update -y 
 sudo apt install wget -y 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
+printf "${YELLOW}Installing chrome DONE!!!${NC}\n";
 
-# git
-printf "${YELLOW}Installing git${NC}\n";
-sleep $delay_after_message;
-sudo apt install git -y;
 
 # curl
 printf "${YELLOW}Installing curl${NC}\n";
@@ -63,11 +65,6 @@ echo deb [arch=amd64 signed-by=/usr/share/keyrings/vscode.gpg] https://packages.
 sudo apt update;
 sudo apt install code -y;
 
-# plank dock
-printf "${YELLOW}Installing plank dock${NC}\n";
-sudo apt update;
-sudo apt install plank -y;
-
 
 # java
 printf "${YELLOW}Installing java${NC}\n";
@@ -78,41 +75,6 @@ sudo apt install openjdk-17-jdk -y;
 printf "${YELLOW}Installing maven${NC}\n";
 sudo apt update;
 sudo apt install maven -y;
-
-#docker
-printf "${YELLOW}Installing docker${NC}\n";
-# Update package index
-sudo apt update
-
-# Install required packages
-sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
-
-# Add Docker's official GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-# Add Docker repository
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-# Update package index again
-sudo apt update
-
-# Check available Docker versions
-apt-cache policy docker-ce
-
-# Install Docker
-sudo apt install -y docker-ce
-
-# Check Docker status
-sudo systemctl status docker
-
-# Add current user to docker group
-sudo usermod -aG docker ${USER}
-
-# Activate changes to groups
-newgrp docker
-
-echo "Docker installation completed! Please log out and log back in for group changes to take effect."
-
 
 
 # 1. Download Postman
@@ -175,3 +137,23 @@ sudo snap install android-studio --classic
 
 # Final message
 echo "Installation of JetBrains tools is complete!"
+
+
+# plank dock
+
+printf "${YELLOW}remove gnome dock${NC}\n";
+sudo apt remove gnome-shell-extension-ubuntu-dock
+
+printf "${YELLOW}Installing plank dock${NC}\n";
+sudo apt update;
+sudo apt install plank -y;
+
+printf "${YELLOW}clone plank themes${NC}\n";
+git clone https://github.com/erikdubois/plankthemes.git
+
+# OnlyOffice 
+printf "${YELLOW}Installing onlyoffice${NC}\n";
+wget https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb -y
+sudo dpkg -i onlyoffice-desktopeditors_amd64.deb
+
+printf "${YELLOW}DONE!!!${NC}\n";
